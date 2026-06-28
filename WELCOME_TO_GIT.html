@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to Git</title>
+  <style>
+    :root {
+      --ink: #151515;
+      --paper: #fbfaf7;
+      --git: #f05033;
+      --mint: #48c7a7;
+      --gold: #f7bf4f;
+      --blue: #3d6df2;
+      --soft: rgba(21, 21, 21, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 18% 20%, rgba(240, 80, 51, 0.22), transparent 28%),
+        radial-gradient(circle at 86% 16%, rgba(61, 109, 242, 0.16), transparent 30%),
+        linear-gradient(135deg, #fff8f0 0%, var(--paper) 45%, #effaf7 100%);
+      display: grid;
+      place-items: center;
+      padding: 32px;
+    }
+
+    .stage {
+      width: min(1100px, 100%);
+      min-height: min(720px, calc(100vh - 64px));
+      border: 1px solid rgba(21, 21, 21, 0.12);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: 0 28px 90px rgba(36, 34, 30, 0.16);
+      overflow: hidden;
+      position: relative;
+      backdrop-filter: blur(18px);
+    }
+
+    .stage::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(21, 21, 21, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(21, 21, 21, 0.04) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 78%);
+      pointer-events: none;
+    }
+
+    header {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 26px clamp(24px, 5vw, 58px);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .git-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--git);
+      transform: rotate(45deg);
+      position: relative;
+      box-shadow: 0 12px 24px rgba(240, 80, 51, 0.34);
+    }
+
+    .git-mark::before,
+    .git-mark::after {
+      content: "";
+      position: absolute;
+      background: white;
+    }
+
+    .git-mark::before {
+      width: 24px;
+      height: 4px;
+      left: 9px;
+      top: 19px;
+    }
+
+    .git-mark::after {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      left: 8px;
+      top: 17px;
+      box-shadow: 17px 0 0 white, 17px -13px 0 white;
+    }
+
+    .pill {
+      border: 1px solid rgba(21, 21, 21, 0.12);
+      border-radius: 999px;
+      padding: 10px 16px;
+      background: rgba(255, 255, 255, 0.64);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.04fr 0.96fr;
+      gap: clamp(28px, 5vw, 72px);
+      align-items: center;
+      padding: clamp(28px, 6vw, 70px);
+      padding-top: 30px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      color: #5f5a51;
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+    }
+
+    .spark {
+      width: 28px;
+      height: 3px;
+      border-radius: 999px;
+      background: var(--git);
+      box-shadow: 12px 0 0 var(--gold), 24px 0 0 var(--mint);
+    }
+
+    h1 {
+      max-width: 760px;
+      font-size: clamp(3.4rem, 9vw, 8.4rem);
+      line-height: 0.9;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    h1 span {
+      color: var(--git);
+      text-shadow: 4px 4px 0 rgba(240, 80, 51, 0.16);
+    }
+
+    .lead {
+      max-width: 560px;
+      margin-top: 28px;
+      font-size: clamp(1.05rem, 2vw, 1.28rem);
+      line-height: 1.65;
+      color: #4b463f;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      border-radius: 14px;
+      padding: 0 20px;
+      border: 1px solid transparent;
+      font-weight: 850;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .button.primary {
+      background: var(--ink);
+      color: white;
+      box-shadow: 0 16px 32px rgba(21, 21, 21, 0.22);
+    }
+
+    .button.secondary {
+      background: white;
+      border-color: rgba(21, 21, 21, 0.12);
+    }
+
+    .terminal {
+      background: #191815;
+      color: #f7f3e8;
+      border-radius: 22px;
+      box-shadow: 0 28px 60px rgba(20, 18, 15, 0.28);
+      overflow: hidden;
+      transform: rotate(1deg);
+    }
+
+    .terminal-top {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 18px;
+      background: #27241f;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--git);
+    }
+
+    .dot:nth-child(2) {
+      background: var(--gold);
+    }
+
+    .dot:nth-child(3) {
+      background: var(--mint);
+    }
+
+    .code {
+      padding: clamp(22px, 4vw, 34px);
+      font-family: Consolas, "Courier New", monospace;
+      font-size: clamp(0.9rem, 2vw, 1.08rem);
+      line-height: 1.9;
+      white-space: nowrap;
+    }
+
+    .prompt {
+      color: var(--mint);
+    }
+
+    .comment {
+      color: #9d978d;
+    }
+
+    .branch-map {
+      display: grid;
+      gap: 14px;
+      margin-top: 24px;
+      padding: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .branch-row {
+      display: grid;
+      grid-template-columns: 82px 1fr;
+      gap: 12px;
+      align-items: center;
+      font-size: 0.88rem;
+      color: #d8d1c5;
+    }
+
+    .line {
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--git), var(--gold), var(--mint), var(--blue));
+    }
+
+    .features {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .feature {
+      min-height: 126px;
+      border: 1px solid rgba(21, 21, 21, 0.1);
+      border-radius: 18px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 10px 24px rgba(21, 21, 21, 0.06);
+    }
+
+    .feature strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1.02rem;
+    }
+
+    .feature p {
+      color: #625d54;
+      line-height: 1.55;
+      font-size: 0.96rem;
+    }
+
+    @media (max-width: 860px) {
+      body {
+        padding: 16px;
+      }
+
+      .stage {
+        border-radius: 22px;
+      }
+
+      header {
+        align-items: flex-start;
+        gap: 18px;
+        flex-direction: column;
+      }
+
+      main {
+        grid-template-columns: 1fr;
+        padding: 26px;
+      }
+
+      .terminal {
+        transform: none;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .code {
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="stage" aria-label="Welcome to Git landing page">
+    <header>
+      <div class="brand">
+        <div class="git-mark" aria-hidden="true"></div>
+        <span>Git Ready</span>
+      </div>
+      <div class="pill">Track. Branch. Merge. Ship.</div>
+    </header>
+
+    <main>
+      <section>
+        <div class="eyebrow"><span class="spark"></span> Version control with style</div>
+        <h1>Welcome to <span>Git</span></h1>
+        <p class="lead">
+          Build boldly, save every milestone, explore new ideas on branches,
+          and bring the best work back together with confidence.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="https://git-scm.com/" target="_blank" rel="noreferrer">Start Learning</a>
+          <a class="button secondary" href="https://docs.github.com/en/get-started/using-git/about-git" target="_blank" rel="noreferrer">See the Basics</a>
+        </div>
+      </section>
+
+      <aside class="terminal" aria-label="Git command preview">
+        <div class="terminal-top">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+        <div class="code">
+          <div><span class="prompt">$</span> git init</div>
+          <div><span class="prompt">$</span> git add .</div>
+          <div><span class="prompt">$</span> git commit -m "first spark"</div>
+          <div><span class="prompt">$</span> git branch new-idea</div>
+          <div><span class="prompt">$</span> git merge brilliance</div>
+          <div class="comment"># your project now has a memory</div>
+        </div>
+        <div class="branch-map">
+          <div class="branch-row"><span>main</span><span class="line"></span></div>
+          <div class="branch-row"><span>feature</span><span class="line"></span></div>
+          <div class="branch-row"><span>release</span><span class="line"></span></div>
+        </div>
+      </aside>
+
+      <section class="features" aria-label="Git highlights">
+        <article class="feature">
+          <strong>Save checkpoints</strong>
+          <p>Commits capture your progress so you can move fast without losing your footing.</p>
+        </article>
+        <article class="feature">
+          <strong>Experiment freely</strong>
+          <p>Branches let ideas breathe, evolve, and prove themselves before they join the main work.</p>
+        </article>
+        <article class="feature">
+          <strong>Collaborate cleanly</strong>
+          <p>History, reviews, and merges keep teams aligned from first draft to final release.</p>
+        </article>
+      </section>
+    </main>
+  </section>
+</body>
+</html>
