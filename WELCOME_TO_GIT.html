@@ -117,6 +117,30 @@
       font-weight: 700;
     }
 
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 800;
+      padding: 10px 14px;
+      border: 1px solid rgba(21, 21, 21, 0.1);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.62);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    nav a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(21, 21, 21, 0.1);
+    }
+
     main {
       position: relative;
       z-index: 1;
@@ -343,7 +367,11 @@
         <div class="git-mark" aria-hidden="true"></div>
         <span>Git Ready</span>
       </div>
-      <div class="pill">Track. Branch. Merge. Ship.</div>
+      <nav aria-label="Main navigation">
+        <a href="WELCOME_TO_GIT.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="knowledge.html">Knowledge</a>
+      </nav>
     </header>
 
     <main>
@@ -355,8 +383,8 @@
           and bring the best work back together with confidence.
         </p>
         <div class="actions">
-          <a class="button primary" href="https://git-scm.com/" target="_blank" rel="noreferrer">Start Learning</a>
-          <a class="button secondary" href="https://docs.github.com/en/get-started/using-git/about-git" target="_blank" rel="noreferrer">See the Basics</a>
+          <a class="button primary" href="knowledge.html">Start Learning</a>
+          <a class="button secondary" href="about.html">About Git</a>
         </div>
       </section>
 
